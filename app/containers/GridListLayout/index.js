@@ -7,34 +7,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Pagination } from 'antd';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectGridListLayout from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import ArticleComponent from '../../components/ArticleComponent';
 import { sampleArticles } from './config.js';
 import { createUseStyles } from 'react-jss';
-import SearchComponent from '../../components/SearchComponent';
-import Category from '../Category';
-import LatestPost from '../LatestPost';
 
 const useStyles = createUseStyles(theme => ({
   colContainer: {
     padding: [0, 0, theme.esDistance * 10, 0],
   },
-  sideBar: {
-    // backgroundColor: 'red',
-  },
 }))
 
-export function GridListLayout() {
+export function GridListLayout({ children }) {
   useInjectReducer({ key: 'gridListLayout', reducer });
   useInjectSaga({ key: 'gridListLayout', saga });
   const classes = useStyles();
@@ -58,10 +50,8 @@ export function GridListLayout() {
             {articlesRenderer(sampleArticles)}
           </Row>
         </Col>
-        <Col xs={2} className={classes.sideBar} >
-          <SearchComponent />
-          <Category />
-          <LatestPost />
+        <Col xs={2} >
+          {children}
         </Col>
         <Col />
       </Row>

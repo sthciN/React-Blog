@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -33,7 +32,6 @@ const useStyles = createUseStyles(theme => ({
   },
   category: {
     color: theme.textMute,
-    // margin: [theme.esDistance, 0]
   },
 }))
 

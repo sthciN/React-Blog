@@ -6,9 +6,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedDate } from 'react-intl';
 import messages from './messages';
 import { createUseStyles } from 'react-jss';
 import truncate from 'lodash/truncate';
@@ -18,6 +17,7 @@ const useStyles = createUseStyles(theme => ({
   container: {
     height: 480,
     width: 360,
+    textAlign: 'left',
     boxShadow: [0, 4, 8, 0, 'rgba(0, 0, 0, 0.1),', 0, 6, 10, 0, 'rgba(0, 0, 0, 0.19)'],
     borderRadius: 6,
     overflow: 'hidden',

@@ -5,15 +5,9 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
-import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { create } from 'react-test-renderer';
 import { createUseStyles } from 'react-jss';
 import { Nav } from 'react-bootstrap';
-import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = createUseStyles(theme => ({
   container: {
@@ -34,8 +28,6 @@ const useStyles = createUseStyles(theme => ({
 
 function NavigationBarComponent() {
   const classes = useStyles();
-  // const history = useHistory();
-  // console.log("TCL: NavigationBarComponent -> history", history);
   return (
     <Nav className="justify-content-end " activeKey="/home">
       <Nav.Item>
