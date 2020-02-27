@@ -13,4 +13,5 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the TitleComponent component!',
   },
+  title: 'Our Blog',
 });

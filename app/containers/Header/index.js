@@ -19,13 +19,21 @@ import saga from './saga';
 import messages from './messages';
 import { createUseStyles } from 'react-jss';
 import NavigationBarComponent from '../../components/NavigationBarComponent';
+import TitleComponent from '../../components/TitleComponent';
 
 const useStyles = createUseStyles(theme => ({
   container: {
     height: 470,
     padding: [theme.esDistance * 4, theme.esDistance * 60],
     background: `linear-gradient(-45deg, ${theme.primaryColor}, ${theme.secondaryColor})`,
-  }
+  },
+  titleContainer: {
+    margin: 'auto',
+    width: '50%',
+    padding: theme.esDistance * 3,
+    textAlign: 'center',
+    marginTop: theme.esDistance * 38,
+  },
 }))
 
 export function Header() {
@@ -34,7 +42,12 @@ export function Header() {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <NavigationBarComponent />
+      <div className={classes.navbar}>
+        <NavigationBarComponent />
+      </div>
+      <div className={classes.titleContainer}>
+        <TitleComponent />
+      </div>
     </div>
   );
 }
