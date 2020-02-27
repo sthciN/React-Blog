@@ -9,9 +9,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Header from '../Header';
+import MainContent from '../MainContent';
 
 export default function HomePage() {
   return (
-    <Header />
+    <>
+      <Header />
+      <MainContent />
+    </>
   );
 }
