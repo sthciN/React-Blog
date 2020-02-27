@@ -22,6 +22,7 @@ import { sampleArticles } from './config.js';
 import { createUseStyles } from 'react-jss';
 import SearchComponent from '../../components/SearchComponent';
 import Category from '../Category';
+import LatestPost from '../LatestPost';
 
 const useStyles = createUseStyles(theme => ({
   colContainer: {
@@ -50,6 +51,7 @@ export function GridListLayout() {
         <Col xs={2} className={classes.sideBar} >
           <SearchComponent />
           <Category />
+          <LatestPost />
         </Col>
         <Col />
       </Row>
