@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Pagination } from 'antd';
 import { Row, Col, Form } from 'react-bootstrap';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -37,6 +38,15 @@ export function GridListLayout() {
   useInjectReducer({ key: 'gridListLayout', reducer });
   useInjectSaga({ key: 'gridListLayout', saga });
   const classes = useStyles();
+  const itemRender = (current, type, originalElement) => {
+    if (type === 'prev') {
+      return <a>Previous</a>;
+    }
+    if (type === 'next') {
+      return <a>Next</a>;
+    }
+    return originalElement;
+  }
   const articlesRenderer = articles => (articles.articles.map(article => articleRenderer(article)))
   const articleRenderer = article => (<Col xs={6} className={classes.colContainer}><ArticleComponent article={article} /></Col>)
   return (
@@ -55,6 +65,8 @@ export function GridListLayout() {
         </Col>
         <Col />
       </Row>
+      {/* TODO dummy pagination */}
+      <Pagination total={500} itemRender={itemRender} />
     </div>
   );
 }
