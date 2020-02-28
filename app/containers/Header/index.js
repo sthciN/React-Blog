@@ -49,7 +49,7 @@ export function Header() {
     <div className={classes.container}>
       <div className={classes.navbar}>
         <NavigationBarComponent />
-        <img src={logo} width={60} />
+        <img src={logo} width={60} alt="Logo" />
       </div>
       <div className={classes.titleContainer}>
         <TitleComponent />

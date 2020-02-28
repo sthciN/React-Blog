@@ -53,7 +53,7 @@ export function LatestPost({ articles }) {
     const { title, createdAt, slug } = article;
     return (
       <div key={slug} className={classes.contentContainer}>
-        <img src={dummyImage} width={72} />
+        <img src={dummyImage} width={72} alt="Photo" />
         <div className={classes.summeries}>
           <div>{truncate(title, { length: truncateLength })}</div>
           <div className={classes.date}>

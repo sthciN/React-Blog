@@ -44,7 +44,7 @@ function ArticleComponent({ article }) {
   const { title, author, createdAt, body } = article;
   return (
     <div className={classes.container}>
-      <img src={dummyImage} width={280} />
+      <img src={dummyImage} width={280} alt="Photo" />
       <div className={classes.content}>
         <div className={classes.title}>
           {truncate(title)}
