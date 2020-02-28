@@ -1,6 +1,21 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import request from '../../utils/requests';
+import { GET_ARTICLES_ACTION } from './constants';
+import { BASE_URL } from '../../utils/constants';
+import { setArticlesAction } from './actions';
+import { setNotificationVisibility } from '../App/actions';
+
+function* getArticles() {
+  const url = `${BASE_URL}/articles`;
+  try {
+    const response = yield call(request, url);
+    yield put(setArticlesAction(response));
+  } catch (err) {
+    yield put(setNotificationVisibility(true));
+  }
+}
 
 // Individual exports for testing
 export default function* articleSaga() {
-  // See example in containers/HomePage/saga.js
+  yield takeLatest(GET_ARTICLES_ACTION, getArticles);
 }

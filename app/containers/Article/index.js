@@ -4,23 +4,27 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import messages from './messages';
 import { Col } from 'react-bootstrap';
 import { Pagination } from 'antd';
-
+import slice from 'lodash/slice';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectArticle from './selectors';
+import { makeSelectArticles } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { createUseStyles } from 'react-jss';
 import ArticleComponent from '../../components/ArticleComponent';
-import { sampleArticles } from './config';
+import { getArticlesAction } from './actions';
+import NotificationComponent from '../../components/NotificationComponent';
+import { makeSelectShowNotification } from '../App/selectors';
+import { setNotificationVisibility } from '../App/actions';
 
 const useStyles = createUseStyles(theme => ({
   colContainer: {
@@ -32,11 +36,17 @@ const useStyles = createUseStyles(theme => ({
   },
 }))
 
-export function Article() {
+const pageSize = 6;
+
+export function Article({ getArticles, showNotification, handleCloseNotification, articles }) {
   useInjectReducer({ key: 'article', reducer });
   useInjectSaga({ key: 'article', saga });
+  const [currentPage, setCurrentPage] = useState(1);
   const classes = useStyles();
   const history = useHistory();
+  useEffect(() => {
+    getArticles();
+  }, [history.location.pathname])
   const itemRender = (current, type, originalElement) => {
     if (type === 'prev') {
       return <a>Previous</a>;
@@ -49,8 +59,13 @@ export function Article() {
   const handleClickArticle = () => {
     history.push('/article');
   }
-
-  const articlesRenderer = articles => (articles.articles.map(article => articleRenderer(article)))
+  const handlePageChange = page => {
+    setCurrentPage(page);
+  }
+  const articlesRenderer = articles => (
+    slice(articles.articles, currentPage * pageSize - pageSize, Math.min(currentPage * pageSize, articles.articlesCount))
+      .map(article => articleRenderer(article))
+  )
   const articleRenderer = article => (
     <Col
       onClick={handleClickArticle}
@@ -61,26 +76,42 @@ export function Article() {
       <ArticleComponent article={article} />
     </Col>
   )
+  if (!articles) return null;
   return (
     <>
-      {articlesRenderer(sampleArticles)}
-      {/* TODO Dummy Pagination */}
-      <Pagination className={classes.pagination} total={500} itemRender={itemRender} />
+      {articlesRenderer(articles)}
+      <Pagination
+        className={classes.pagination}
+        pageSize={pageSize}
+        total={articles.articlesCount}
+        itemRender={itemRender}
+        onChange={handlePageChange}
+      />
+      <NotificationComponent
+        onClose={handleCloseNotification}
+        show={showNotification}
+        title={messages.errNotificationTitle}
+        content={messages.errNotificationContent}
+      />
     </>
   );
 }
 
 Article.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  getArticles: PropTypes.func,
+  showNotification: PropTypes.bool,
+  handleCloseNotification: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  article: makeSelectArticle(),
+  articles: makeSelectArticles(),
+  showNotification: makeSelectShowNotification(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getArticles: () => dispatch(getArticlesAction()),
+    handleCloseNotification: () => dispatch(setNotificationVisibility(false)),
   };
 }
 

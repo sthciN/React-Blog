@@ -38,7 +38,7 @@ const useStyles = createUseStyles(theme => ({
     padding: [theme.esDistance * 2, 0],
   },
 }))
-const truncateNumber = 100;
+const truncateNumber = 80;
 function ArticleComponent({ article }) {
   const classes = useStyles();
   const { title, author, createdAt, body } = article;

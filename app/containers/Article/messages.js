@@ -13,4 +13,6 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the Article container!',
   },
+  errNotificationTitle: 'ERROR',
+  errNotificationContent: 'Please try again later.',
 });
