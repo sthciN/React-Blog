@@ -17,11 +17,11 @@ import reducer from './reducer';
 import saga from './saga';
 import GridListLayout from '../GridListLayout';
 import { createUseStyles } from 'react-jss';
-import Sidebar from '../Sidebar';
+import Article from '../Article';
 
 const useStyles = createUseStyles(theme => ({
   container: {
-    padding: [theme.esDistance * 30, 0],
+    // padding: [theme.esDistance * 30, 0],
     textAlign: '-webkit-center',
   },
 }))
@@ -33,7 +33,7 @@ export function MainContent() {
   return (
     <div>
       <div className={classes.container}>
-        <GridListLayout><Sidebar /></GridListLayout>
+        <GridListLayout><Article /></GridListLayout>
       </div>
     </div>
   );

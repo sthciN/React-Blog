@@ -14,4 +14,5 @@ export default defineMessages({
     defaultMessage: 'This is the TitleComponent component!',
   },
   title: 'Our Blog',
+  homeLocation: 'Home',
 });

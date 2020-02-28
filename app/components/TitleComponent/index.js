@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import messages from './messages';
 import { createUseStyles } from 'react-jss';
 
@@ -18,17 +19,18 @@ const useStyles = createUseStyles(theme => ({
   },
 }))
 
-function TitleComponent() {
+function TitleComponent({ title }) {
   const classes = useStyles();
   return (
     <div className={classes.container}>
       <div className={classes.title}>{messages.title}</div>
-      {/* TODO useLocation */}
-      <div>Home - Blog</div>
+      <div>{messages.homeLocation} - {title}</div>
     </div>
   );
 }
 
-TitleComponent.propTypes = {};
+TitleComponent.propTypes = {
+  title: PropTypes.string,
+};
 
 export default TitleComponent;

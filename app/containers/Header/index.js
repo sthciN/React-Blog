@@ -25,6 +25,7 @@ const useStyles = createUseStyles(theme => ({
     height: 470,
     padding: [theme.esDistance * 4, theme.esDistance * 55],
     background: `linear-gradient(-45deg, ${theme.primaryColor}, ${theme.secondaryColor})`,
+    marginBottom: theme.esDistance * 30,
   },
   navbar: {
     marginTop: theme.esDistance * 2,
@@ -41,7 +42,7 @@ const useStyles = createUseStyles(theme => ({
   },
 }))
 
-export function Header() {
+export function Header({title}) {
   useInjectReducer({ key: 'header', reducer });
   useInjectSaga({ key: 'header', saga });
   const classes = useStyles();
@@ -52,7 +53,7 @@ export function Header() {
         <img src={logo} width={60} alt="Logo" />
       </div>
       <div className={classes.titleContainer}>
-        <TitleComponent />
+        <TitleComponent title={title} />
       </div>
     </div>
   );
@@ -60,6 +61,7 @@ export function Header() {
 
 Header.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -9,54 +9,40 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Pagination } from 'antd';
 import { Row, Col } from 'react-bootstrap';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectGridListLayout from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import ArticleComponent from '../../components/ArticleComponent';
-import { sampleArticles } from './config.js';
+import Sidebar from '../Sidebar';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles(theme => ({
   colContainer: {
     padding: [0, 0, theme.esDistance * 10, 0],
+    cursor: 'pointer',
   },
 }))
 
 export function GridListLayout({ children }) {
   useInjectReducer({ key: 'gridListLayout', reducer });
   useInjectSaga({ key: 'gridListLayout', saga });
-  const classes = useStyles();
-  const itemRender = (current, type, originalElement) => {
-    if (type === 'prev') {
-      return <a>Previous</a>;
-    }
-    if (type === 'next') {
-      return <a>Next</a>;
-    }
-    return originalElement;
-  }
-  const articlesRenderer = articles => (articles.articles.map(article => articleRenderer(article)))
-  const articleRenderer = article => (<Col key={article.slug} xs={6} className={classes.colContainer}><ArticleComponent article={article} /></Col>)
+
   return (
     <div>
       <Row noGutters>
         <Col xs={2} />
         <Col xs={6}>
           <Row noGutters>
-            {articlesRenderer(sampleArticles)}
+            {children}
           </Row>
         </Col>
         <Col xs={2} >
-          {children}
+          <Sidebar />
         </Col>
         <Col xs={2} />
       </Row>
-      {/* TODO dummy pagination */}
-      <Pagination total={500} itemRender={itemRender} />
     </div>
   );
 }

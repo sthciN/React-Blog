@@ -9,11 +9,12 @@ import React from 'react';
 import Header from '../Header';
 import MainContent from '../MainContent';
 import Newsletter from '../Newsletter';
+import messages from './messages';
 
 export default function HomePage() {
   return (
     <>
-      <Header />
+      <Header title={messages.title} />
       <MainContent />
       <Newsletter />
     </>
