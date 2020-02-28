@@ -7,7 +7,7 @@ const selectGlobal = state => state.global || initialState;
 const makeSelectShowNotification = () =>
   createSelector(
     selectGlobal,
-    routerState => routerState.showNotification,
+    substate => substate.showNotification,
   );
 
 export { makeSelectShowNotification };

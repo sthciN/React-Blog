@@ -14,7 +14,7 @@ function NotificationComponent({ show, title, content, onClose }) {
       aria-live="polite"
       aria-atomic="true"
       style={{
-        position: 'relative',
+        position: 'absolute',
         minHeight: '100px',
       }}
     >
@@ -22,7 +22,7 @@ function NotificationComponent({ show, title, content, onClose }) {
         show={show}
         onClose={onClose}
         style={{
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           right: 0,
         }}

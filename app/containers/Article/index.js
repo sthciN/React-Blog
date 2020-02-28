@@ -24,7 +24,7 @@ import ArticleComponent from '../../components/ArticleComponent';
 import { getArticlesAction } from './actions';
 import NotificationComponent from '../../components/NotificationComponent';
 import { makeSelectShowNotification } from '../App/selectors';
-import { setNotificationVisibility } from '../App/actions';
+import { setNotificationVisibilityAction } from '../App/actions';
 
 const useStyles = createUseStyles(theme => ({
   colContainer: {
@@ -76,14 +76,13 @@ export function Article({ getArticles, showNotification, handleCloseNotification
       <ArticleComponent article={article} />
     </Col>
   )
-  if (!articles) return null;
   return (
     <>
-      {articlesRenderer(articles)}
+      {articles && articlesRenderer(articles)}
       <Pagination
         className={classes.pagination}
         pageSize={pageSize}
-        total={articles.articlesCount}
+        total={!articles ? 0 : articles.articlesCount}
         itemRender={itemRender}
         onChange={handlePageChange}
       />
@@ -111,7 +110,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getArticles: () => dispatch(getArticlesAction()),
-    handleCloseNotification: () => dispatch(setNotificationVisibility(false)),
+    handleCloseNotification: () => dispatch(setNotificationVisibilityAction(false)),
   };
 }
 
