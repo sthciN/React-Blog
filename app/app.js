@@ -10,9 +10,7 @@ import '@babel/polyfill';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
@@ -47,7 +45,7 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
+      <BrowserRouter>
         <ThemeProvider theme={defaultTheme}>
           <LanguageProvider messages={messages}>
             <ConnectedRouter history={history}>
@@ -55,7 +53,7 @@ const render = messages => {
             </ConnectedRouter>
           </LanguageProvider>
         </ThemeProvider>
-      </Router>
+      </BrowserRouter>
     </Provider>,
     MOUNT_NODE,
   );
