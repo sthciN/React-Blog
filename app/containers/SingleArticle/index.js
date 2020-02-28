@@ -20,11 +20,11 @@ import saga from './saga';
 import messages from './messages';
 import Header from '../Header';
 import GridListLayout from '../GridListLayout';
+import Newsletter from '../Newsletter';
 import { createUseStyles } from 'react-jss';
 import { sampleArticle } from './config';
 import { FormattedDate } from 'react-intl';
 import dummyImage400 from '../../assets/images/dummyImage400.jpg';
-import dummyImage180 from '../../assets/images/dummyImage180.jpg';
 
 const useStyles = createUseStyles(theme => ({
   container: {
@@ -132,6 +132,7 @@ export function SingleArticle() {
     return (
       <div className={classes.articleContainer}>
         <h4 className={classes.title}>{truncate(title, { length: '50' })}</h4>
+        {/* TODO intl hooks */}
         <div className={classes.detail}>{messages.by}: {author.username}, {messages.date}: <FormattedDate value={new Date(createdAt)} year="numeric" month="long" day="2-digit" /></div>
         <img src={dummyImage400} alt="Photo" width={610} />
         <div className={classes.body}>{body}</div>
@@ -188,6 +189,7 @@ export function SingleArticle() {
           {authorRenderer()}
         </div>
       </GridListLayout>
+      <Newsletter />
     </div>
   );
 }

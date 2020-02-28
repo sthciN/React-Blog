@@ -50,6 +50,7 @@ function ArticleComponent({ article }) {
           {truncate(title)}
         </div>
         <div className={classes.detail}>
+          {/* TODO intl hooks */}
           {messages.by}: {author.username}, {messages.date}: <FormattedDate value={new Date(createdAt)} year="numeric" month="long" day="2-digit" />
         </div>
         <div className={classes.body}>

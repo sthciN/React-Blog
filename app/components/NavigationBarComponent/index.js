@@ -33,7 +33,7 @@ function NavigationBarComponent() {
     <div className={classes.container}>
       <Nav className="justify-content-end " activeKey="/home">
         <Nav.Item>
-          <Nav.Link href="/home" >{messages.home}</Nav.Link>
+          <Nav.Link href="/" >{messages.home}</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="about">{messages.about}</Nav.Link>

@@ -16,14 +16,6 @@ import makeSelectGridListLayout from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Sidebar from '../Sidebar';
-import { createUseStyles } from 'react-jss';
-
-const useStyles = createUseStyles(theme => ({
-  colContainer: {
-    padding: [0, 0, theme.esDistance * 10, 0],
-    cursor: 'pointer',
-  },
-}))
 
 export function GridListLayout({ children }) {
   useInjectReducer({ key: 'gridListLayout', reducer });

@@ -64,6 +64,7 @@ export function Article() {
   return (
     <>
       {articlesRenderer(sampleArticles)}
+      {/* TODO Dummy Pagination */}
       <Pagination className={classes.pagination} total={500} itemRender={itemRender} />
     </>
   );
