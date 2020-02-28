@@ -21,6 +21,7 @@ import Article from '../Article';
 
 const useStyles = createUseStyles(theme => ({
   container: {
+    marginBottom: theme.esDistance * 8,
     textAlign: '-webkit-center',
   },
 }))
