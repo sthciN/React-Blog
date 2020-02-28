@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -16,16 +15,22 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectHeader from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { createUseStyles } from 'react-jss';
 import NavigationBarComponent from '../../components/NavigationBarComponent';
 import TitleComponent from '../../components/TitleComponent';
+import logo from '../../assets/images/theBigD.png';
 
 const useStyles = createUseStyles(theme => ({
   container: {
     height: 470,
-    padding: [theme.esDistance * 4, theme.esDistance * 60],
+    padding: [theme.esDistance * 4, theme.esDistance * 55],
     background: `linear-gradient(-45deg, ${theme.primaryColor}, ${theme.secondaryColor})`,
+  },
+  navbar: {
+    marginTop: theme.esDistance * 2,
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
   },
   titleContainer: {
     margin: 'auto',
@@ -44,6 +49,7 @@ export function Header() {
     <div className={classes.container}>
       <div className={classes.navbar}>
         <NavigationBarComponent />
+        <img src={logo} width={60} />
       </div>
       <div className={classes.titleContainer}>
         <TitleComponent />

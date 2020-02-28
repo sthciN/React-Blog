@@ -23,18 +23,18 @@ import { Form, Button, Nav } from 'react-bootstrap';
 const useStyles = createUseStyles(theme => ({
   container: {
     height: 670,
-    backgroundImage: `url(${background})`,
-    backgroundSize: 'cover',
     textAlign: 'center',
     color: theme.textWhite,
+    backgroundImage: `url(${background})`,
+    backgroundSize: 'cover',
   },
   contentContainer: {
     padding: [theme.esDistance * 40, theme.esDistance * 60],
   },
   title: {
+    margin: [theme.esDistance * 8, 0],
     fontSize: 22,
     fontWeight: 'bold',
-    margin: [theme.esDistance * 8, 0],
   },
   description: {
     width: 500,
@@ -56,17 +56,17 @@ const useStyles = createUseStyles(theme => ({
     borderRadius: 40,
   },
   subscribeButton: {
+    height: 36,
     padding: [0, theme.esDistance * 5],
     marginLeft: -(theme.esDistance * 29),
     borderRadius: 40,
-    height: 36,
   },
   footer: {
-    padding: [0, theme.esDistance * 20],
-    fontSize: 14,
+    padding: [0, theme.esDistance * 48],
     display: 'flex',
     justifyContent: 'space-between',
     color: theme.textWhite,
+    fontSize: 14,
     backgroundColor: 'rgba(46,33,162, 0.2)',
   },
   navigation: {

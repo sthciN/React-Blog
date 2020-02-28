@@ -17,5 +17,5 @@ export default defineMessages({
   about: 'About',
   screen: 'Screen',
   contact: 'Contact',
-  createAccount: 'create Account',
+  createAccount: 'Create Account',
 });

@@ -50,9 +50,9 @@ export function LatestPost({ articles }) {
   const classes = useStyles();
   const articlesRenderer = articles => (articles.articles.map(article => articleRenderer(article)))
   const articleRenderer = article => {
-    const { title, createdAt } = article;
+    const { title, createdAt, slug } = article;
     return (
-      <div className={classes.contentContainer}>
+      <div key={slug} className={classes.contentContainer}>
         <img src={dummyImage} width={72} />
         <div className={classes.summeries}>
           <div>{truncate(title, { length: truncateLength })}</div>

@@ -40,12 +40,12 @@ export function GridListLayout({ children }) {
     return originalElement;
   }
   const articlesRenderer = articles => (articles.articles.map(article => articleRenderer(article)))
-  const articleRenderer = article => (<Col xs={6} className={classes.colContainer}><ArticleComponent article={article} /></Col>)
+  const articleRenderer = article => (<Col key={article.slug} xs={6} className={classes.colContainer}><ArticleComponent article={article} /></Col>)
   return (
     <div>
       <Row noGutters>
-        <Col />
-        <Col xs={8}>
+        <Col xs={2} />
+        <Col xs={6}>
           <Row noGutters>
             {articlesRenderer(sampleArticles)}
           </Row>
@@ -53,7 +53,7 @@ export function GridListLayout({ children }) {
         <Col xs={2} >
           {children}
         </Col>
-        <Col />
+        <Col xs={2} />
       </Row>
       {/* TODO dummy pagination */}
       <Pagination total={500} itemRender={itemRender} />

@@ -35,7 +35,7 @@ function SearchComponent() {
       <Form.Control type="textarea" className={classes.search} placeholder="search" />
       {/* There is no search input in react bootstrap library. I tried to put it manually. */}
       <div className={classes.searchIcon}>
-        <span aria-hidden="true" class="icon-search"></span>
+        <span aria-hidden="true" className="icon-search"></span>
       </div>
     </div>
   );

@@ -31,6 +31,7 @@ const useStyles = createUseStyles(theme => ({
     },
   },
   category: {
+    margin: [theme.esDistance, 0],
     color: theme.textMute,
   },
 }))
