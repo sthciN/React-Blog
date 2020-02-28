@@ -25,6 +25,7 @@ import { createUseStyles } from 'react-jss';
 import { sampleArticle } from './config';
 import { FormattedDate } from 'react-intl';
 import dummyImage400 from '../../assets/images/dummyImage400.jpg';
+import AddComment from '../AddComment';
 
 const useStyles = createUseStyles(theme => ({
   container: {
@@ -187,6 +188,7 @@ export function SingleArticle() {
             </div>
           </div>
           {authorRenderer()}
+          <AddComment />
         </div>
       </GridListLayout>
       <Newsletter />
