@@ -18,5 +18,7 @@ export default defineMessages({
   date: 'Date',
   tags: 'Tags',
   authorJob: 'Post Editor',
-  authorBio: 'Lorem ipsum dolor sit amet, consectetur adiproiden ut aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetur adiproiden ut aliquip ex ea commodo consequat. Duis'
+  authorBio: 'Lorem ipsum dolor sit amet, consectetur adiproiden ut aliquip ex ea commodo consequat. Duis Lorem ipsum dolor sit amet, consectetur adiproiden ut aliquip ex ea commodo consequat. Duis',
+  errNotificationTitle: 'ERROR',
+  errNotificationContent: 'Please try again later.',
 });

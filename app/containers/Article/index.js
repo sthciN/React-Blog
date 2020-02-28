@@ -56,8 +56,8 @@ export function Article({ getArticles, showNotification, handleCloseNotification
     }
     return originalElement;
   }
-  const handleClickArticle = () => {
-    history.push('/article');
+  const handleClickArticle = slug => {
+    history.push(`/article/${slug}`);
   }
   const handlePageChange = page => {
     setCurrentPage(page);
@@ -68,7 +68,7 @@ export function Article({ getArticles, showNotification, handleCloseNotification
   )
   const articleRenderer = article => (
     <Col
-      onClick={handleClickArticle}
+      onClick={() => { handleClickArticle(article.slug) }}
       key={article.slug}
       xs={6}
       className={classes.colContainer}

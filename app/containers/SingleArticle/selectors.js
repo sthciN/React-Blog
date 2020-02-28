@@ -21,5 +21,11 @@ const makeSelectSingleArticle = () =>
     substate => substate,
   );
 
+const makeSelectArticle = () =>
+  createSelector(
+    selectSingleArticleDomain,
+    substate => substate.article,
+  );
+
 export default makeSelectSingleArticle;
-export { selectSingleArticleDomain };
+export { selectSingleArticleDomain, makeSelectArticle };

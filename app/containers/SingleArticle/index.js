@@ -4,9 +4,10 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -14,7 +15,6 @@ import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectSingleArticle from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,10 +22,14 @@ import Header from '../Header';
 import GridListLayout from '../GridListLayout';
 import Newsletter from '../Newsletter';
 import { createUseStyles } from 'react-jss';
-import { sampleArticle } from './config';
 import { FormattedDate } from 'react-intl';
 import dummyImage400 from '../../assets/images/dummyImage400.jpg';
 import AddComment from '../AddComment';
+import { getArticleAction } from './actions';
+import { makeSelectArticle } from './selectors';
+import { setNotificationVisibilityAction } from '../App/actions';
+import NotificationComponent from '../../components/NotificationComponent';
+import { makeSelectShowNotification } from '../App/selectors';
 
 const useStyles = createUseStyles(theme => ({
   container: {
@@ -124,20 +128,23 @@ const useStyles = createUseStyles(theme => ({
   },
 }))
 
-export function SingleArticle() {
+export function SingleArticle({ getArticle, article, handleCloseNotification, showNotification }) {
   useInjectReducer({ key: 'singleArticle', reducer });
   useInjectSaga({ key: 'singleArticle', saga });
+  const params = useParams();
   const classes = useStyles();
-  const { slug, title, description, body, createdAt, author, tagList } = sampleArticle;
+  useEffect(() => {
+    getArticle(params.slug);
+  }, [params]);
   const articleRenderer = () => {
     return (
       <div className={classes.articleContainer}>
-        <h4 className={classes.title}>{truncate(title, { length: '50' })}</h4>
+        <h4 className={classes.title}>{truncate(article.title, { length: '50' })}</h4>
         {/* TODO intl hooks */}
-        <div className={classes.detail}>{messages.by}: {author.username}, {messages.date}: <FormattedDate value={new Date(createdAt)} year="numeric" month="long" day="2-digit" /></div>
+        <div className={classes.detail}>{messages.by}: {article.author.username}, {messages.date}: <FormattedDate value={new Date(article.createdAt)} year="numeric" month="long" day="2-digit" /></div>
         <img src={dummyImage400} alt="Photo" width={610} />
-        <div className={classes.body}>{body}</div>
-        <div className={classes.description}>{description}</div>
+        <div className={classes.body}>{article.body}</div>
+        <div className={classes.description}>{article.description}</div>
       </div>
     )
   }
@@ -157,56 +164,76 @@ export function SingleArticle() {
       </div>
     </div>
   )
-  const tagsRenderer = () => (tagList.map(tag => (<div key={tag} className={classes.tag}>{tag}</div>)))
+  const tagsRenderer = () => (article.tagList.map(tag => (<div key={tag} className={classes.tag}>{tag}</div>)))
   const authorRenderer = () => (
     <div className={classes.author}>
       <span>
-        <img className={classes.authorImage} src={author.image} alt="Photo" width={180} />
+        <img className={classes.authorImage} src={article.author.image} alt="Photo" width={180} />
       </span>
       <div className={classes.authorDetail}>
-        <div className={classes.authorName}>{author.username}</div>
+        <div className={classes.authorName}>{article.author.username}</div>
         <div className={classes.authorJob}>{messages.authorJob}</div>
         <div className={classes.authorBio}>{messages.authorBio}</div>
       </div>
     </div>
   )
+
+  const showArticle = () => {
+    if (article) {
+      return (
+        <GridListLayout>
+          <div className={classes.container}>
+            {articleRenderer()}
+            <div className={classes.socialsAndTags}>
+              {socialsRenderer()}
+              <div className={classes.tags}>
+                <div className={classes.tagTitle}>{messages.tags}</div>
+                {tagsRenderer()}
+              </div>
+            </div>
+            {authorRenderer()}
+            <AddComment />
+          </div>
+        </GridListLayout>
+      )
+    }
+  }
+
   return (
     <div>
       <Helmet>
-        <title>SingleArticle</title>
+        <title>Article</title>
         <meta name="description" content="Description of SingleArticle" />
       </Helmet>
       <Header title={messages.title} />
-      <GridListLayout>
-        <div className={classes.container}>
-          {articleRenderer()}
-          <div className={classes.socialsAndTags}>
-            {socialsRenderer()}
-            <div className={classes.tags}>
-              <div className={classes.tagTitle}>{messages.tags}</div>
-              {tagsRenderer()}
-            </div>
-          </div>
-          {authorRenderer()}
-          <AddComment />
-        </div>
-      </GridListLayout>
+      {article && showArticle()}
       <Newsletter />
+      <NotificationComponent
+        onClose={handleCloseNotification}
+        show={showNotification}
+        title={messages.errNotificationTitle}
+        content={messages.errNotificationContent}
+      />
     </div>
   );
 }
 
 SingleArticle.propTypes = {
+  getArticle: PropTypes.func,
   article: PropTypes.object,
+  handleCloseNotification: PropTypes.func,
+  showNotification: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  singleArticle: makeSelectSingleArticle(),
+  article: makeSelectArticle(),
+  showNotification: makeSelectShowNotification(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getArticle: slug => dispatch(getArticleAction(slug)),
+    handleCloseNotification: () => dispatch(setNotificationVisibilityAction(false)),
   };
 }
 
