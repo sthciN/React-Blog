@@ -21,14 +21,13 @@ import { Form, Button, Nav } from 'react-bootstrap';
 
 const useStyles = createUseStyles(theme => ({
   container: {
-    height: 670,
     textAlign: 'center',
     color: theme.textWhite,
-    overflow: 'hidden',
+    overflowX: 'hidden',
     background: `linear-gradient(-45deg, ${theme.primaryColor}, ${theme.secondaryColor})`,
   },
   contentContainer: {
-    padding: [theme.esDistance * 40, theme.esDistance * 60],
+    padding: [theme.esDistance * 20, theme.esDistance * 60],
   },
   title: {
     margin: [theme.esDistance * 8, 0],
@@ -103,7 +102,6 @@ export function Newsletter() {
       <div>
         {circleRenderer()}
       </div>
-      <div className={classes.circle2} />
       <div className={classes.contentContainer}>
         <div className={classes.title}>{messages.title}</div>
         <div className={classes.description}>{messages.description}</div>
