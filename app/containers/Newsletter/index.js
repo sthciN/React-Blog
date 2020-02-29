@@ -17,7 +17,6 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { createUseStyles } from 'react-jss';
-import background from '../../assets/images/footer.png';
 import { Form, Button, Nav } from 'react-bootstrap';
 
 const useStyles = createUseStyles(theme => ({
@@ -25,8 +24,8 @@ const useStyles = createUseStyles(theme => ({
     height: 670,
     textAlign: 'center',
     color: theme.textWhite,
-    backgroundImage: `url(${background})`,
-    backgroundSize: 'cover',
+    overflow: 'hidden',
+    background: `linear-gradient(-45deg, ${theme.primaryColor}, ${theme.secondaryColor})`,
   },
   contentContainer: {
     padding: [theme.esDistance * 40, theme.esDistance * 60],
@@ -77,14 +76,34 @@ const useStyles = createUseStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  circle: {
+    height: 200,
+    width: 400,
+    display: 'inline-block',
+    borderBottomLeftRadius: 400,
+    margin: [0, -100],
+    backgroundColor: theme.secondaryColor,
+    mixBlendMode: 'color-burn',
+    borderBottomRightRadius: 400,
+  },
 }))
 
 export function Newsletter() {
   useInjectReducer({ key: 'newsletter', reducer });
   useInjectSaga({ key: 'newsletter', saga });
-  const classes = useStyles()
+  const classes = useStyles();
+  const circles = new Array(Math.round(window.innerWidth / 200) - 1).fill(0);
+  const circleRenderer = () => (
+    circles.map((_, i) => (
+      <div key={i.toString()} className={classes.circle} />
+    ))
+  )
   return (
     <div className={classes.container}>
+      <div>
+        {circleRenderer()}
+      </div>
+      <div className={classes.circle2} />
       <div className={classes.contentContainer}>
         <div className={classes.title}>{messages.title}</div>
         <div className={classes.description}>{messages.description}</div>
