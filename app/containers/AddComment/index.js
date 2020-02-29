@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -18,6 +18,7 @@ import saga from './saga';
 import messages from './messages';
 import { createUseStyles } from 'react-jss';
 import { Form, Col, Button } from 'react-bootstrap';
+import { submitCommentAction } from './actions';
 
 const useStyles = createUseStyles(theme => ({
   container: {
@@ -34,28 +35,40 @@ const useStyles = createUseStyles(theme => ({
   }
 }))
 
-export function AddComment({ slug }) {
+export function AddComment({ slug, handleSubmitComment }) {
   useInjectReducer({ key: 'addComment', reducer });
   useInjectSaga({ key: 'addComment', saga });
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [body, setBody] = useState();
   const classes = useStyles();
+  const handleChangeName = e => {
+    setName(e.target.value);
+  }
+  const handleChangeEmail = e => {
+    setEmail(e.target.value);
+  }
+  const handleChangeBody = e => {
+    setBody(e.target.value);
+  }
   return (
     <div className={classes.container}>
       <div className={classes.title}>{messages.write}</div>
       <Form>
         <Form.Row>
           <Form.Group as={Col} controlId="nameId">
-            <Form.Control type="input" placeholder={messages.name} />
+            <Form.Control onChange={handleChangeName} type="input" placeholder={messages.name} />
           </Form.Group>
 
           <Form.Group as={Col} controlId="emailId">
-            <Form.Control type="email" placeholder={messages.email} />
+            <Form.Control onChange={handleChangeEmail} type="email" placeholder={messages.email} />
           </Form.Group>
         </Form.Row>
 
         <Form.Group controlId="messageId">
-          <Form.Control as="textarea" rows="6" placeholder={messages.message} />
+          <Form.Control onChange={handleChangeBody} as="textarea" rows="6" placeholder={messages.message} />
         </Form.Group>
-        <Button variant="primary" >
+        <Button onClick={e => { e.preventDefault(); handleSubmitComment(slug, name, email, body) }} variant="primary" >
           {messages.submit}
         </Button>
       </Form>
@@ -64,7 +77,7 @@ export function AddComment({ slug }) {
 }
 
 AddComment.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  handleSubmitComment: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -73,7 +86,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    handleSubmitComment: (slug, name, email, body) => dispatch(submitCommentAction(slug, name, email, body)),
   };
 }
 

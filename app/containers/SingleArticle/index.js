@@ -148,20 +148,25 @@ export function SingleArticle({ getArticle, article, handleCloseNotification, sh
       </div>
     )
   }
+
+  const handleOnClickSocial = e => {
+    e.preventDefault();
+  }
+
   const socialsRenderer = () => (
     <div className={classes.socials}>
-      <div className={classnames([classes.social, classes.facebook])}>
+      <a href="#" onClick={handleOnClickSocial} className={classnames([classes.social, classes.facebook])}>
         <span aria-hidden="true" className="icon-facebook"></span>
-      </div>
-      <div className={classnames([classes.social, classes.twitter])}>
+      </a>
+      <a href="#" onClick={handleOnClickSocial} className={classnames([classes.social, classes.twitter])}>
         <span aria-hidden="true" className="icon-twitter"></span>
-      </div>
-      <div className={classnames([classes.social, classes.linkedin])}>
+      </a>
+      <a href="#" onClick={handleOnClickSocial} className={classnames([classes.social, classes.linkedin])}>
         <span aria-hidden="true" className="icon-linkedin"></span>
-      </div>
-      <div className={classnames([classes.social, classes.vimeo])}>
+      </a>
+      <a href="#" onClick={handleOnClickSocial} className={classnames([classes.social, classes.vimeo])}>
         <span aria-hidden="true" className="icon-vimeo"></span>
-      </div>
+      </a>
     </div>
   )
   const tagsRenderer = () => (article.tagList.map(tag => (<div key={tag} className={classes.tag}>{tag}</div>)))
@@ -192,7 +197,7 @@ export function SingleArticle({ getArticle, article, handleCloseNotification, sh
               </div>
             </div>
             {authorRenderer()}
-            <AddComment />
+            <AddComment slug={article.slug} />
           </div>
         </GridListLayout>
       )
