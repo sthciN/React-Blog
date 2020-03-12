@@ -1,3 +1,5 @@
+# React Blog
+
 React Example for Beginners   
 
 This application is made up of two main pages: 
