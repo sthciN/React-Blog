@@ -1,4 +1,4 @@
-This is just a test case of the entrance interview.  
+React Example for Beginners   
 
 This application is made up of two main pages: 
 * /
